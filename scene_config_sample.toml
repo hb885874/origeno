@@ -1,0 +1,150 @@
+# ═══════════════════════════════════════════════════════════════
+# scene1.toml  —  Origeno scene config
+# Scene: "The Hidden Dependency"
+# ═══════════════════════════════════════════════════════════════
+# Translate from your scene planning template into this file.
+# Then run: python origeno.py scene1.toml
+# Tweak values → re-run → re-render. Never edit scene1.py directly.
+# ═══════════════════════════════════════════════════════════════
+
+[scene]
+name     = "The Hidden Dependency"
+class    = "Scene1"
+output   = "scene1.py"
+duration = 45
+fps      = 30
+style    = "oversimplified"
+
+# [config] is optional — omit to use Origeno brand defaults
+[config]
+background = "#F5F0E8"
+resolution = "1080p"    # preview | 1080p | 4k
+
+[config.palette]
+RED   = "#D42B2B"
+BLUE  = "#2255AA"
+GOLD  = "#C8960C"
+GREEN = "#2A7A2A"
+
+[assets]
+character  = "scientist"
+char_color = "blue"
+char_pos   = "right"
+icons      = ["chip", "globe"]
+map        = "world-dots"
+
+# ───────────────────────────────────────────────────────────────
+# BEAT 1  |  0s → 8s  |  Hook
+# ───────────────────────────────────────────────────────────────
+[[beats]]
+id             = 1
+name           = "Hook"
+time_start     = 0
+time_end       = 8
+narration      = "Did you know India makes almost no chips?"
+on_screen_text = "ZERO CHIPS"
+camera         = "static"
+transition     = "keep"
+
+  [beats.stamp]
+  text         = "ZERO CHIPS"
+  color        = "RED"
+  from_dir     = "TOP"
+  run_time     = 0.6        # tweak: 0.3=snappy  1.2=slow dramatic
+  bounce_count = 3          # tweak: 1=clean  5=very bouncy/comedic
+  font_size    = 52
+  position     = "center"
+
+  [beats.prop]
+  name     = "chip"
+  position = "right"
+  scale    = 1.2            # tweak: bigger = more emphasis
+  color    = "BLUE"
+
+# ───────────────────────────────────────────────────────────────
+# BEAT 2  |  8s → 22s  |  Data reveal
+# ───────────────────────────────────────────────────────────────
+[[beats]]
+id             = 2
+name           = "Data reveal"
+time_start     = 8
+time_end       = 22
+narration      = "92% of advanced chips come from one island."
+on_screen_text = "92%"
+camera         = "static"
+transition     = "fade"
+
+  [beats.counter]
+  start     = 0
+  end       = 92
+  label     = "%"
+  duration  = 2.5           # tweak: slower = more suspense
+  color     = "RED"
+  position  = "center"
+  font_size = 88
+
+  [beats.chart]
+  type         = "pie"
+  grow_time    = 1.8         # tweak: slower = more dramatic reveal
+  position     = "right"
+  color_scheme = "highlight_first"  # first slice RED, rest grey
+
+    [[beats.chart.data]]
+    label = "Taiwan"
+    value = 92
+
+    [[beats.chart.data]]
+    label = "Others"
+    value = 8
+
+# ───────────────────────────────────────────────────────────────
+# BEAT 3  |  22s → 38s  |  Map reveal
+# ───────────────────────────────────────────────────────────────
+[[beats]]
+id             = 3
+name           = "Map reveal"
+time_start     = 22
+time_end       = 38
+narration      = "Here is where the entire dependency lives."
+on_screen_text = "One island. All chips."
+camera         = "zoom-in"
+transition     = "fade"
+ken_burns      = "pan-right"
+
+  [beats.map]
+  type            = "world-dots"
+  highlight       = "Taiwan"
+  arc_from        = "USA"
+  arc_to          = "Taiwan"
+  dot_color       = "GRID"
+  highlight_color = "RED"
+  arc_color       = "GOLD"
+
+  [beats.character]
+  action   = "points-at"
+  position = "left"
+  color    = "BLUE"
+  target   = "map"
+  run_time = 0.8             # tweak: walk-in speed
+
+# ───────────────────────────────────────────────────────────────
+# BEAT 4  |  38s → 45s  |  Outro
+# ───────────────────────────────────────────────────────────────
+[[beats]]
+id             = 4
+name           = "Outro"
+time_start     = 38
+time_end       = 45
+narration      = "Subscribe for more deep dives on Origeno."
+on_screen_text = "ORIGENO"
+camera         = "static"
+transition     = "fade-to-black"
+
+  [beats.stamp]
+  text         = "SUBSCRIBE"
+  color        = "RED"
+  from_dir     = "TOP"
+  run_time     = 0.5
+  bounce_count = 2
+  font_size    = 48
+  position     = "center"
